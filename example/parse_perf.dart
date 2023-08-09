@@ -1,4 +1,4 @@
-import 'package:duration_parser/src/iso_duration_base.dart';
+import 'package:iso_duration/src/iso_duration_base.dart';
 
 void main() {
   const testData = [

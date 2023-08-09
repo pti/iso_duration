@@ -1,4 +1,4 @@
-name: duration_parser
+name: iso_duration
 description: A starting point for Dart libraries or applications.
 version: 0.1.0
 

@@ -1,4 +1,4 @@
-import 'package:duration_parser/iso_duration.dart';
+import 'package:iso_duration/iso_duration.dart';
 
 void main() {
   final duration1 = tryParseIso8601Duration('PT1H24M');
