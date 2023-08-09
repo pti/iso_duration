@@ -1,5 +1,5 @@
 name: iso_duration
-description: A starting point for Dart libraries or applications.
+description: Parse and generate ISO 8601 duration strings.
 version: 0.1.0
 repository: https://github.com/pti/iso_duration/
 
