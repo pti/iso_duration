@@ -58,5 +58,7 @@ void main() {
     expect(Duration(milliseconds: 3154).toIso8601String(), 'PT3.2S');
     expect(Duration(days: 9).toIso8601String(), 'P1W2D');
     expect(Duration(days: 21, minutes: 5).toIso8601String(), 'P3WT5M');
+    expect(Duration(days: 365).toIso8601String(), 'P52W1D'); // Week is the largest unit returned by toIso8601String().
+    expect(Duration(milliseconds: 800).toIso8601String(), 'PT0.8S');
   });
 }

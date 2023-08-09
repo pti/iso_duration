@@ -230,7 +230,7 @@ extension Iso8601DurationExtra on Duration {
     if (weeks > 0) sb.write('${weeks}W');
     if (days > 0) sb.write('${days}D');
 
-    if (hours > 0 || minutes > 0 || seconds > 0) {
+    if (hours > 0 || minutes > 0 || seconds > 0 || ds > 0) {
       sb.write('T');
 
       if (hours > 0) sb.write('${hours}H');
