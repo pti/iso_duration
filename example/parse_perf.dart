@@ -11,7 +11,7 @@ void main() {
 
     for (var i = 0; i < 1000; i++) {
       for (final ds in testData) {
-        parseIso8601Duration2(ds);
+        parseIso8601Duration(ds);
       }
     }
 

@@ -28,26 +28,26 @@ void main() {
     expect(tryParseIso8601Duration('PT1123.4S'), Duration(seconds: 1123, milliseconds: 400));
     expect(tryParseIso8601Duration('PT7.0S'), Duration(seconds: 7));
     expect(tryParseIso8601Duration('PT7.1S'), Duration(seconds: 7, milliseconds: 100));
-    expect(() => parseIso8601Duration2('PT1.5H30M'), throwsFormatException); // Only the smallest component may have a decimal fraction.
-    expect(() => parseIso8601Duration2('PT1.75H'), throwsFormatException); // Only one decimal fraction is allowed.
+    expect(() => parseIso8601Duration('PT1.5H30M'), throwsFormatException); // Only the smallest component may have a decimal fraction.
+    expect(() => parseIso8601Duration('PT1.75H'), throwsFormatException); // Only one decimal fraction is allowed.
 
     expect(tryParseIso8601Duration(null), null);
     expect(tryParseIso8601Duration(''), null);
 
-    expect(() => parseIso8601Duration2('P'), throwsFormatException);
-    expect(() => parseIso8601Duration2('PT'), throwsFormatException);
-    expect(() => parseIso8601Duration2('PT4D'), throwsFormatException); // Days in time part.
-    expect(() => parseIso8601Duration2('P1M1Y'), throwsFormatException); // Invalid order.
-    expect(() => parseIso8601Duration2('P1M1M'), throwsFormatException); // Months twice.
-    expect(() => parseIso8601Duration2('PT1M2H'), throwsFormatException); // Invalid order.
-    expect(() => parseIso8601Duration2('PT1H2H'), throwsFormatException); // Months twice.
-    expect(() => parseIso8601Duration2('P.9M'), throwsFormatException); // Integer part required.
-    expect(() => parseIso8601Duration2('PT-1H60M'), throwsFormatException); // Minus sign only allowed in the beginning.
-    expect(() => parseIso8601Duration2('P T1M'), throwsFormatException);
-    expect(() => parseIso8601Duration2('PTgarbage1M'), throwsFormatException);
-    expect(() => parseIso8601Duration2('PT1Mgarbage'), throwsFormatException);
-    expect(() => parseIso8601Duration2('PT1M '), throwsFormatException);
-    expect(() => parseIso8601Duration2('PT  1M'), throwsFormatException);
-    expect(() => parseIso8601Duration2('PTNaNM'), throwsFormatException);
+    expect(() => parseIso8601Duration('P'), throwsFormatException);
+    expect(() => parseIso8601Duration('PT'), throwsFormatException);
+    expect(() => parseIso8601Duration('PT4D'), throwsFormatException); // Days in time part.
+    expect(() => parseIso8601Duration('P1M1Y'), throwsFormatException); // Invalid order.
+    expect(() => parseIso8601Duration('P1M1M'), throwsFormatException); // Months twice.
+    expect(() => parseIso8601Duration('PT1M2H'), throwsFormatException); // Invalid order.
+    expect(() => parseIso8601Duration('PT1H2H'), throwsFormatException); // Months twice.
+    expect(() => parseIso8601Duration('P.9M'), throwsFormatException); // Integer part required.
+    expect(() => parseIso8601Duration('PT-1H60M'), throwsFormatException); // Minus sign only allowed in the beginning.
+    expect(() => parseIso8601Duration('P T1M'), throwsFormatException);
+    expect(() => parseIso8601Duration('PTgarbage1M'), throwsFormatException);
+    expect(() => parseIso8601Duration('PT1Mgarbage'), throwsFormatException);
+    expect(() => parseIso8601Duration('PT1M '), throwsFormatException);
+    expect(() => parseIso8601Duration('PT  1M'), throwsFormatException);
+    expect(() => parseIso8601Duration('PTNaNM'), throwsFormatException);
   });
 }
