@@ -50,4 +50,13 @@ void main() {
     expect(() => parseIso8601Duration('PT  1M'), throwsFormatException);
     expect(() => parseIso8601Duration('PTNaNM'), throwsFormatException);
   });
+
+  test('Duration.toIso8601String', () {
+    expect(Duration.zero.toIso8601String(), 'PT0S');
+    expect(Duration(days: 2, hours: 1, minutes: 43).toIso8601String(), 'P2DT1H43M');
+    expect(Duration(hours: -1, seconds: -42).toIso8601String(), '-PT1H42S');
+    expect(Duration(milliseconds: 3154).toIso8601String(), 'PT3.2S');
+    expect(Duration(days: 9).toIso8601String(), 'P1W2D');
+    expect(Duration(days: 21, minutes: 5).toIso8601String(), 'P3WT5M');
+  });
 }

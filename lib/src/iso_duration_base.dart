@@ -11,7 +11,7 @@ Duration? tryParseIso8601Duration(String? str, {bool zeroAsNull = false}) {
   }
 }
 
-/// Converts an ISO 8601 duration string to an [Duration] instance.
+/// Converts an ISO 8601 duration string to a Dart [Duration] instance.
 ///
 /// Implements a subset of the ISO 8601 Durations syntax as described in [Wikipedia](https://en.wikipedia.org/wiki/ISO_8601#Durations)
 /// (8/2023). Notes:
@@ -153,7 +153,7 @@ Duration parseIso8601Duration(String str) {
     throw FormatException('Garbage after the end of duration: ${str.substring(start)}');
   }
 
-  tdays += (tyears) * 365 + (tmonths) * 30 + (tweeks) * 7;
+  tdays += (tyears) * _kDaysPerYear + (tmonths) * _kDaysPerMonth + (tweeks) * _kDaysPerWeek;
   var fullDays = tdays ~/ 10;
 
   thours += (tdays - fullDays * 10) * Duration.hoursPerDay;
@@ -182,4 +182,67 @@ Duration parseIso8601Duration(String str) {
     seconds: fullSeconds,
     microseconds: microseconds
   );
+}
+
+const _kDaysPerYear = 365;
+const _kDaysPerMonth = 30;
+const _kDaysPerWeek = 7;
+
+extension Iso8601DurationExtra on Duration {
+
+  /// Returns an ISO 8601 duration format representation.
+  ///
+  /// Due to the ambiguities with the number of days in a year and month, the largest unit in the returned
+  /// string is weeks.
+  String toIso8601String() {
+    if (this == Duration.zero) return 'PT0S';
+
+    final Duration duration;
+    final StringBuffer sb;
+
+    if (isNegative) {
+      sb = StringBuffer('-P');
+      duration = abs();
+    } else {
+      sb = StringBuffer('P');
+      duration = this;
+    }
+
+    // Calculate component values.
+    var days = duration.inDays;
+    var x = days * Duration.hoursPerDay;
+
+    final weeks = days ~/ _kDaysPerWeek;
+    days -= weeks * _kDaysPerWeek;
+
+    final hours = duration.inHours - x;
+    x = (x + hours) * Duration.minutesPerHour;
+
+    final minutes = duration.inMinutes - x;
+    x = (x + minutes) * Duration.secondsPerMinute;
+
+    final seconds = duration.inSeconds - x;
+    x = (x + seconds) * Duration.millisecondsPerSecond;
+
+    final ds = ((duration.inMilliseconds - x) / 100.0).round();
+
+    // Generate the string.
+    if (weeks > 0) sb.write('${weeks}W');
+    if (days > 0) sb.write('${days}D');
+
+    if (hours > 0 || minutes > 0 || seconds > 0) {
+      sb.write('T');
+
+      if (hours > 0) sb.write('${hours}H');
+      if (minutes > 0) sb.write('${minutes}M');
+
+      if (ds > 0) {
+        sb.write('$seconds.${ds}S');
+      } else if (seconds > 0) {
+        sb.write('${seconds}S');
+      }
+    }
+
+    return sb.toString();
+  }
 }
