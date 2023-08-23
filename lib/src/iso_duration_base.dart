@@ -221,10 +221,9 @@ extension Iso8601DurationExtra on Duration {
     final minutes = duration.inMinutes - x;
     x = (x + minutes) * Duration.secondsPerMinute;
 
-    final seconds = duration.inSeconds - x;
-    x = (x + seconds) * Duration.millisecondsPerSecond;
-
-    final ds = ((duration.inMilliseconds - x) / 100.0).round();
+    final desiseconds = ((duration.inMilliseconds - x * Duration.millisecondsPerSecond) / 100.0).round();
+    final seconds = desiseconds ~/ 10;
+    final ds = desiseconds % 10;
 
     // Generate the string.
     if (weeks > 0) sb.write('${weeks}W');
