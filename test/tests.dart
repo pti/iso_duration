@@ -30,9 +30,13 @@ void main() {
     expect(tryParseIso8601Duration('PT7.1S'), Duration(seconds: 7, milliseconds: 100));
     expect(() => parseIso8601Duration('PT1.5H30M'), throwsFormatException); // Only the smallest component may have a decimal fraction.
     expect(() => parseIso8601Duration('PT1.75H'), throwsFormatException); // Only one decimal fraction is allowed.
+    expect(() => parseIso8601Duration('+'), throwsFormatException); // Only a sign character is not allowed
+    expect(() => parseIso8601Duration('-'), throwsFormatException); // Only a sign character is not allowed
 
     expect(tryParseIso8601Duration(null), null);
     expect(tryParseIso8601Duration(''), null);
+    expect(tryParseIso8601Duration('-'), null);
+    expect(tryParseIso8601Duration('+'), null);
 
     expect(() => parseIso8601Duration('P'), throwsFormatException);
     expect(() => parseIso8601Duration('PT'), throwsFormatException);
