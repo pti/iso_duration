@@ -1,11 +1,11 @@
 name: iso_duration
 description: Parse and generate ISO 8601 duration strings.
-version: 0.1.1
+version: 0.2.0
 repository: https://github.com/pti/iso_duration/
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
 
 dev_dependencies:
-  lints: ^2.0.0
-  test: ^1.21.0
+  lints: ^6.1.0
+  test: ^1.33.0
