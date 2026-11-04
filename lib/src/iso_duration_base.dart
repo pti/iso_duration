@@ -25,6 +25,7 @@ Duration parseIso8601Duration(String str) {
 
   var negative = ch == '-';
   if (negative || ch == '+') i++;
+  if (i == 1 && str.length == 1) throw FormatException('Only sign character in string: $str');
 
   ch = str[i++];
   if (ch != 'P') throw FormatException('Missing prefix P: $str');
